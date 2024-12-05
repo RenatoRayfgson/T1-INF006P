@@ -32,7 +32,7 @@ int main(){
     int contagemDeLinhas=0;
     char espaco[]=" ";
     if(fp_in == NULL || fp_out == NULL){
-        printf("Não foi possível abrir os arquivos!");
+        printf("Nao foi possivel abrir os arquivos!");
         return EXIT_FAILURE;
     }
 
@@ -40,8 +40,8 @@ int main(){
         Pontos p[200];
         int contador;
         float distanciaTotal=0, distanciaAtalho=0;
-        char entrada[1000];
-
+        char saida[1000];
+        int c=0;
         char *pedaco = strtok(linha, espaco);
 
         if(strcmp(pedaco, "points") == 0){ //Isso é capricho meu, tem jeito mais fácil de fazer
@@ -63,7 +63,22 @@ int main(){
             distanciaTotal =+ sqrt((float)(pow(p[i+1].x - p[i].x, 2) + pow(p[i+1].y - p[i].y, 2))); 
         }
         distanciaAtalho = sqrt((float)(pow(p[contador-1].x - p[0].x, 2)) + (pow(p[contador-1].y - p[0].y, 2)));
+        
+        bubbleSort(p, contador);
+        
+        
+        sprintf(saida, (contagemDeLinhas == 0) ? "points" : "\npoints");
+        while(c<contador){
+            sprintf(saida, "%s (%d,%d)", saida, p[c].x, p[c].y); //Essa linha pode ter ficado um pouco confusa, mas é só um while q tá concatenando as coordenadas com a saída anterior, acredito q vá funcionar
+            c++;
+        }
+        //Isso não tava batendo antes por que tem ser >>EXATAMENTE<< igual à saida do Dihego, contei até os espaços
+        sprintf(saida, "%s distance %.2f", saida, distanciaTotal);
+        sprintf(saida, "%s shortcut %.2f", saida, distanciaAtalho);
+        fputs(saida, fp_out);
+        contagemDeLinhas++;
     }
-    
-    return EXIT_SUCCESS;
+    fclose(fp_in);
+    fclose(fp_out);    
+    return 0;
 }
