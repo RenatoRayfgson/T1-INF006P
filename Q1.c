@@ -38,7 +38,7 @@ int main(){
 
     while(fgets(linha, sizeof(linha), fp_in) != NULL){
         Pontos p[200];
-        int contador;
+        int contador=0;
         float distanciaTotal=0, distanciaAtalho=0;
         char saida[1000];
         int c=0;
@@ -60,7 +60,7 @@ int main(){
             pedaco = strtok(NULL, espaco);
         }
         for(int i=0; i<contador-1; i++){
-            distanciaTotal =+ sqrt((float)(pow(p[i+1].x - p[i].x, 2) + pow(p[i+1].y - p[i].y, 2))); 
+            distanciaTotal += sqrt((float)(pow(p[i+1].x - p[i].x, 2) + pow(p[i+1].y - p[i].y, 2))); 
         }
         distanciaAtalho = sqrt((float)(pow(p[contador-1].x - p[0].x, 2)) + (pow(p[contador-1].y - p[0].y, 2)));
         
