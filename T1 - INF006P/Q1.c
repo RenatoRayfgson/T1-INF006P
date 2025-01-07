@@ -1,4 +1,4 @@
-//Equipe: Renato Rayfgson Bittencourt(20241160004) e Anna Luisa(INSERIR NUMERO DE MATRÍCULA)
+//Equipe: Renato Rayfgson Bittencourt(20241160004) e Anna Luisa Santos de Sousa(20232160040)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
