@@ -36,6 +36,66 @@ void inserirNaListaCircular(listaCircular * L, float X);
 void inserirListaLigada(listaLigada * L, float X);
 void inserirKey(listaLigada * L, float X);
 void mudarArquivo(listaLigada * L, FILE * fileOut, int isLast);
+float limitarCasasDecimais(char* str, int casas);
+
+int main() {
+  if(!arquivoExistente("L1Q3.in")) {
+    printf("> Arquivo não encontrado!");
+    return EXIT_FAILURE;
+  }
+
+  if(!arquivoExistente("L1Q3.out")) {
+    criarArquivo("L1Q3.out");
+  }
+
+  FILE * arquivoDeEntrada = fopen("L1Q3.in", "r");
+  FILE * arquivoDeSaida = fopen("L1Q3.out", "w");
+  char * linha = (char*) malloc(tamanhoMaximoLinha * (sizeof(char)));
+  char * separador = " ";
+  char * pedaco;
+
+  listaLigada * principal = malloc(sizeof(listaLigada));
+  iniciarListaLigada(principal);
+  fgets(linha, tamanhoMaximoLinha, arquivoDeEntrada);
+  while(linha != NULL) {
+    pedaco = strtok(linha, separador);
+    while(pedaco != NULL) {
+      if(strcmp(pedaco, "LE") == 0) {
+        pedaco = strtok(NULL, separador);
+        while((strcmp(pedaco, "LI") != 0) && pedaco != NULL) {
+          float tmp = limitarCasasDecimais(pedaco, 2);
+          inserirListaLigada(principal, tmp);
+          pedaco = strtok(NULL, separador);
+        }
+      }
+      if(strcmp(pedaco, "LI") == 0) {
+        pedaco = strtok(NULL, separador);
+        while((strcmp(pedaco, "LE") != 0)) {
+          float tmp = limitarCasasDecimais(pedaco, 2);
+          inserirKey(principal, tmp);
+          pedaco = strtok(NULL, separador);
+          if(pedaco == NULL) {
+            break;
+          }
+        }
+      }
+      pedaco = strtok(NULL, separador);
+    }
+    if(fgets(linha, tamanhoMaximoLinha, arquivoDeEntrada) != NULL) {
+      mudarArquivo(principal, arquivoDeSaida, 0);
+      liberarLista(principal);
+    } else {
+      mudarArquivo(principal, arquivoDeSaida, 1);
+      liberarLista(principal);
+      break;
+    }
+  }
+  fclose(arquivoDeEntrada);
+  fclose(arquivoDeSaida);
+  free(linha);
+  free(principal);
+  return EXIT_SUCCESS;
+}
 
 int criarArquivo(char caminho[]) {
   FILE * criarArquivo;
@@ -219,61 +279,4 @@ float limitarCasasDecimais(char* str, int casas) {
     return (roundf(numero * potencia)) / potencia;
 }
 
-int main() {
-  if(!arquivoExistente("L1Q3.in")) {
-    printf("> Arquivo não encontrado!");
-    return EXIT_FAILURE;
-  }
 
-  if(!arquivoExistente("L1Q3.out")) {
-    criarArquivo("L1Q3.out");
-  }
-
-  FILE * arquivoDeEntrada = fopen("L1Q3.in", "r");
-  FILE * arquivoDeSaida = fopen("L1Q3.out", "w");
-  char * linha = (char*) malloc(tamanhoMaximoLinha * (sizeof(char)));
-  char * separador = " ";
-  char * pedaco;
-
-  listaLigada * principal = malloc(sizeof(listaLigada));
-  iniciarListaLigada(principal);
-  fgets(linha, tamanhoMaximoLinha, arquivoDeEntrada);
-  while(linha != NULL) {
-    pedaco = strtok(linha, separador);
-    while(pedaco != NULL) {
-      if(strcmp(pedaco, "LE") == 0) {
-        pedaco = strtok(NULL, separador);
-        while((strcmp(pedaco, "LI") != 0) && pedaco != NULL) {
-          float tmp = limitarCasasDecimais(pedaco, 2);
-          inserirListaLigada(principal, tmp);
-          pedaco = strtok(NULL, separador);
-        }
-      }
-      if(strcmp(pedaco, "LI") == 0) {
-        pedaco = strtok(NULL, separador);
-        while((strcmp(pedaco, "LE") != 0)) {
-          float tmp = limitarCasasDecimais(pedaco, 2);
-          inserirKey(principal, tmp);
-          pedaco = strtok(NULL, separador);
-          if(pedaco == NULL) {
-            break;
-          }
-        }
-      }
-      pedaco = strtok(NULL, separador);
-    }
-    if(fgets(linha, tamanhoMaximoLinha, arquivoDeEntrada) != NULL) {
-      mudarArquivo(principal, arquivoDeSaida, 0);
-      liberarLista(principal);
-    } else {
-      mudarArquivo(principal, arquivoDeSaida, 1);
-      liberarLista(principal);
-      break;
-    }
-  }
-  fclose(arquivoDeEntrada);
-  fclose(arquivoDeSaida);
-  free(linha);
-  free(principal);
-  return EXIT_SUCCESS;
-}
