@@ -7,7 +7,7 @@
 typedef struct noSimples {
   struct noSimples * proximo;
   float key;
-}noSimples;
+} noSimples;
 
 typedef struct listaCircular {
   noSimples * frente;
@@ -40,7 +40,7 @@ float limitarCasasDecimais(char* str, int casas);
 
 int main() {
   if(!arquivoExistente("L1Q3.in")) {
-    printf("> Arquivo não encontrado!");
+    printf("Arquivo não encontrado!");
     return EXIT_FAILURE;
   }
 
@@ -94,6 +94,7 @@ int main() {
   fclose(arquivoDeSaida);
   free(linha);
   free(principal);
+  printf("Tarefa concluída com sucesso!");
   return EXIT_SUCCESS;
 }
 
