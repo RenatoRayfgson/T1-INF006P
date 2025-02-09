@@ -1,4 +1,3 @@
-// Equipe: Renato Rayfgson Bittencourt(20241160004) e Anna Luisa Santos de Sousa(20232160040)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -213,7 +212,7 @@ int max(int a, int b) {
 int main(){
     FILE *fp_in = fopen("L2Q3.in", "r"); 
     FILE *fp_out = fopen("L2Q3.out", "w");
-    char linha[257];
+    char linha[1000];
     int cont = 0, flag = 0;
   
     if(fp_in == NULL)
@@ -221,7 +220,7 @@ int main(){
     if(fp_out == NULL)
         perror("Erro ao abrir o arquivo L2Q1.out\n");
 
-    while (fgets(linha, 257, fp_in) != NULL){
+    while (fgets(linha, 1000, fp_in) != NULL){
         if(cont != 0)
             fprintf(fp_out, "\n");
         cont++;        
