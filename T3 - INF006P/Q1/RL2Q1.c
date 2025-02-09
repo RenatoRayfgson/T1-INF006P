@@ -1,4 +1,3 @@
-//Equipe: Renato Rayfgson Bittencourt(20241160004) e Anna Luisa Santos de Sousa(20232160040) 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -106,11 +105,11 @@ int main()
         return 0;
     }
     avbin* raiz = criaArvore();
-    char linha[256], *token;
+    char linha[1000], *token;
     int num, ant, cont = 0, cont2 = 0;
     saida saida, maior;
     maior.valor = -100000;
-    while(fgets(linha, 256, arquivoEntrada) != NULL){
+    while(fgets(linha, 1000, arquivoEntrada) != NULL){
         token = strtok(linha, " ");
         if(cont != 0)
             fprintf(arquivoSaida, "\n");
